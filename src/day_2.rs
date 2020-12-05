@@ -1,11 +1,9 @@
 use anyhow::anyhow;
 
-const INPUT: &'static str = include_str!("../data/day_2.txt");
-
-pub fn part_one() -> anyhow::Result<u32> {
+pub fn part_one(input: &str) -> anyhow::Result<u32> {
     let mut result = 0;
 
-    for line in INPUT.split_terminator("\n") {
+    for line in input.split_terminator("\n") {
         let (min, max, rule_char, pswd) = extract_parts(line)?;
 
         if (min..=max).contains(&pswd.chars().filter(|c| *c == rule_char).count()) {
@@ -16,10 +14,10 @@ pub fn part_one() -> anyhow::Result<u32> {
     Ok(result)
 }
 
-pub fn part_two() -> anyhow::Result<u32> {
+pub fn part_two(input: &str) -> anyhow::Result<u32> {
     let mut result = 0;
 
-    for line in INPUT.split_terminator("\n") {
+    for line in input.split_terminator("\n") {
         let (first, second, rule_char, pswd) = extract_parts(line)?;
 
         let first_match = pswd.chars().nth(first - 1).filter(|&c| c == rule_char);
@@ -60,4 +58,22 @@ fn extract_parts(line: &str) -> anyhow::Result<(usize, usize, char, &str)> {
         .ok_or(anyhow!("expected password in {}", line))?;
 
     Ok((first, second, rule_char, pswd))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const INPUT: &'static str = include_str!("../data/day_2.txt");
+
+    #[test]
+    fn examples() {
+        assert_eq!(extract_parts("1-3 a: abcde").unwrap(), (1, 3, 'a', "abcde"))
+    }
+
+    #[test]
+    fn real_input() {
+        assert_eq!(part_one(INPUT).unwrap(), 424);
+        assert_eq!(part_two(INPUT).unwrap(), 747);
+    }
 }
