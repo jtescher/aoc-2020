@@ -16,9 +16,7 @@ pub fn part_two(input: &'static str) -> Option<usize> {
         seen[id as usize - min] = true;
     }
 
-    seen.iter()
-        .enumerate()
-        .find_map(|(idx, seen)| if !seen { Some(idx + min) } else { None })
+    seen.iter().position(|seen| !seen).map(|idx| idx + min)
 }
 
 fn seat_ids(input: &'static str) -> impl Iterator<Item = usize> {
