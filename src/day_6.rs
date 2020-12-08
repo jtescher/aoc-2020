@@ -16,7 +16,7 @@ pub fn part_two(input: &str) -> u32 {
         .split_terminator("\n\n")
         .map(|group| {
             group
-                .split_terminator('\n')
+                .lines()
                 .map(|member| {
                     member
                         .chars()

@@ -11,7 +11,7 @@ pub fn part_two(input: &str) -> u32 {
 
 fn run_slope(right: usize, down: usize, input: &str) -> u32 {
     input
-        .split_terminator("\n")
+        .lines()
         .enumerate()
         .step_by(down)
         .skip(1)

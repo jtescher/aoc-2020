@@ -3,7 +3,7 @@ use anyhow::anyhow;
 pub fn part_one(input: &str) -> anyhow::Result<u32> {
     let mut result = 0;
 
-    for line in input.split_terminator("\n") {
+    for line in input.lines() {
         let (min, max, rule_char, pswd) = extract_parts(line)?;
 
         if (min..=max).contains(&pswd.chars().filter(|c| *c == rule_char).count()) {
@@ -17,7 +17,7 @@ pub fn part_one(input: &str) -> anyhow::Result<u32> {
 pub fn part_two(input: &str) -> anyhow::Result<u32> {
     let mut result = 0;
 
-    for line in input.split_terminator("\n") {
+    for line in input.lines() {
         let (first, second, rule_char, pswd) = extract_parts(line)?;
 
         let first_match = pswd.chars().nth(first - 1).filter(|&c| c == rule_char);

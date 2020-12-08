@@ -20,7 +20,7 @@ pub fn part_two(input: &'static str) -> Option<usize> {
 }
 
 fn seat_ids(input: &'static str) -> impl Iterator<Item = usize> {
-    input.split_terminator("\n").map(|pass| {
+    input.lines().map(|pass| {
         // Pass is basically binary, convert 'B's and 'R's to 1s and others to 0s
         pass.chars()
             .fold(0, |acc, c| (acc << 1) + matches!(c, 'B' | 'R') as usize)
